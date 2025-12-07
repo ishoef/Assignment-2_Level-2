@@ -16,7 +16,7 @@ const registerUser = async (req: Request, res: Response) => {
       data: result.rows[0],
     });
   } catch (err: any) {
-    res.status(404).json({
+    res.status(400).json({
       success: false,
       message: err.message,
     });
