@@ -14,7 +14,7 @@ const addVehicle = async (payload: Record<string, unknown>) => {
     type,
     registration_number,
     daily_rent_price,
-    availability_status) VALUES($1, $2, $3, $4) RETURNING *`,
+    availability_status) VALUES($1, $2, $3, $4, $5) RETURNING *`,
     [
       vehicle_name,
       type,

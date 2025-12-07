@@ -18,6 +18,8 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/users", userRoutes);
 
+// Vehicle
+app.use("/api/v1/vehicles");
 
 app.listen(port, () => {
   console.log(`The server is running on the port ${port}`);
