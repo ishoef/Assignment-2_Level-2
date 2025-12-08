@@ -20,19 +20,19 @@ const getUsers = async (req: Request, res: Response) => {
 
 // Get Single User
 const getSingleUser = async (req: Request, res: Response) => {
-  const id = req.params?.id;
+  const userId = req.params?.userId;
 
   try {
-    const result = await userService.getSingleUser(id!);
+    const result = await userService.getSingleUser(userId!);
     if (result.rows.length === 0) {
       res.status(404).json({
         success: false,
-        message: `User not found by id ${id}`,
+        message: `User not found by id ${userId}`,
       });
     } else {
       res.status(200).json({
         success: true,
-        message: `User found by id ${id}`,
+        message: `User found by id ${userId}`,
         data: result.rows[0],
       });
     }
@@ -46,11 +46,17 @@ const getSingleUser = async (req: Request, res: Response) => {
 
 // Update User Data
 const updateUser = async (req: Request, res: Response) => {
-  const id = req.params.id;
+  const userId = req.params.userId;
   const { name, email, phone, role } = req.body;
 
   try {
-    const result = await userService.updateUser(name, email, phone, role, id!);
+    const result = await userService.updateUser(
+      name,
+      email,
+      phone,
+      role,
+      userId!
+    );
     if (result.rows.length === 0) {
       res.status(404).json({
         success: false,
@@ -73,18 +79,18 @@ const updateUser = async (req: Request, res: Response) => {
 
 // Delete user by id
 const deleteUser = async (req: Request, res: Response) => {
-  const id = req.params.id;
+  const userId = req.params.userId;
   try {
-    const result = await userService.deleteUser(id!);
+    const result = await userService.deleteUser(userId!);
     if (result.rowCount === 0) {
       res.status(404).json({
         sucess: false,
-        message: `User not found for deleting by id ${id}`,
+        message: `User not found for deleting by id ${userId}`,
       });
     } else {
       res.status(200).json({
         success: true,
-        message: `User deleted successfully by id ${id}`,
+        message: `User deleted successfully by id ${userId}`,
       });
     }
   } catch (err: any) {

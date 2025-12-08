@@ -16,11 +16,12 @@ app.get("/", (req: Request, res: Response) => {
   res.send("hello nayef! the assignment - 2 is running");
 });
 
-app.use("/api/v1/auth", authRoutes);
-app.use("/api/v1/users", userRoutes);
 
-// Vehicle
-app.use("/api/v1/vehicles", vehicleRoutes);
+app.use("/api/v1/auth", authRoutes); // auth
+app.use("/api/v1/users", userRoutes); // Users
+app.use("/api/v1/vehicles", vehicleRoutes); // Vehicle
+
+
 
 app.listen(port, () => {
   console.log(`The server is running on the port ${port}`);

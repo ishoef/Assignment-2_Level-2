@@ -1,6 +1,7 @@
 import { pool } from "../../config/db";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import config from "../../config";
 
 // Register User
 const registerUser = async (payload: Record<string, unknown>) => {
@@ -39,7 +40,7 @@ const loginUser = async (email: string, password: string) => {
   }
 
   // Creating JWT
-  const secret = "I536IYl21Aj3liRpG4JdAamBKG2I7SNu";
+  const secret = config.jwt_secret as string;
   const token = jwt.sign(
     {
       name: user.name,

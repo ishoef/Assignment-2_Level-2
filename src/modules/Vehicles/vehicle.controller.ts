@@ -39,20 +39,20 @@ const getVehicles = async (req: Request, res: Response) => {
 
 // Get single vehicle
 const getSingleVehicle = async (req: Request, res: Response) => {
-  const id = req.params.id;
+  const vehicleId = req.params.vehicleId;
 
   try {
-    const result = await vehicleService.getSingleVehicle(id!);
+    const result = await vehicleService.getSingleVehicle(vehicleId!);
     if (result.rows.length !== 0) {
       res.status(200).json({
         success: true,
-        message: `user found by id ${id}`,
+        message: `user found by id ${vehicleId}`,
         data: result.rows[0],
       });
     } else {
       res.status(404).json({
         success: false,
-        message: `User not found by id ${id}`,
+        message: `User not found by id ${vehicleId}`,
       });
     }
   } catch (err: any) {
@@ -66,19 +66,19 @@ const getSingleVehicle = async (req: Request, res: Response) => {
 
 // Update vehicle data
 const updateVehicle = async (req: Request, res: Response) => {
-  const id = req.params.id;
+  const vehicleId = req.params.vehicleId;
   try {
-    const result = await vehicleService.updateVehicle(req.body, id!);
+    const result = await vehicleService.updateVehicle(req.body, vehicleId!);
 
     if (result.rows.length === 0) {
       res.status(404).json({
         success: false,
-        message: `not updated the vehicle by id ${id}`,
+        message: `not updated the vehicle by id ${vehicleId}`,
       });
     } else {
       res.status(200).json({
         success: true,
-        message: `Vehicle updated successfully by id ${id}`,
+        message: `Vehicle updated successfully by id ${vehicleId}`,
         data: result.rows[0],
       });
     }
@@ -93,19 +93,19 @@ const updateVehicle = async (req: Request, res: Response) => {
 
 // Delte vehicle
 const deleteVehicle = async (req: Request, res: Response) => {
-  const id = req.params.id;
+  const vehicleId = req.params.vehicleId;
   try {
-    const result = await vehicleService.deleteVehicle(id!);
+    const result = await vehicleService.deleteVehicle(vehicleId!);
 
     if (result.rowCount === 0) {
       res.status(404).json({
         success: false,
-        message: `Vehicle not found with id ${id} for deleting`,
+        message: `Vehicle not found with id ${vehicleId} for deleting`,
       });
     } else {
       res.status(200).json({
         success: true,
-        message: `Vehicle with id "${id}" deleted successfuly`,
+        message: `Vehicle with id "${vehicleId}" deleted successfuly`,
       });
     }
   } catch (err: any) {
