@@ -70,6 +70,23 @@ const updateVehicle = async (
   return result;
 };
 
+// Update vehicle availabality status
+const updateVehicleAvailability = async (
+  vehicleId: string,
+  status: string
+) => {
+  const result = await pool.query(
+    `UPDATE vehicles
+     SET availability_status = $1
+     WHERE id = $2
+     RETURNING *`,
+    [status, vehicleId]
+  );
+
+  return result.rows[0];
+};
+
+
 // Delete vehicle
 const deleteVehicle = async (vehicleId: string) => {
   const result = await pool.query(`DELETE FROM vehicles WHERE id = $1`, [
@@ -85,4 +102,5 @@ export const vehicleService = {
   getSingleVehicle,
   updateVehicle,
   deleteVehicle,
+  updateVehicleAvailability,
 };

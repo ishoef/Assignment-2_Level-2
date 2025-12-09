@@ -14,20 +14,28 @@ const getSingleUser = async (userId: string) => {
   return result;
 };
 
-// Updata user by id
+// Update user by id
 const updateUser = async (
   name: string,
   email: string,
   phone: string,
-  role: string,
+  role: string | undefined,
   userId: string
 ) => {
-  const result = await pool.query(
-    `UPDATE users SET name=$1, email=$2, phone=$3, role=$4 WHERE id = $5 RETURNING *`,
-    [name, email, phone, role, userId]
-  );
+  if (role !== undefined) {
+    const result = pool.query(
+      `UPDATE users SET name=$1, email=$2, phone=$3, role=$4 WHERE id=$5 RETURNING *`,
+      [name, email, phone, role, userId]
+    );
+    return result;
+  } else {
+    const result = pool.query(
+      `UPDATE users SET name=$1, email=$2, phone=$3 WHERE id=$4 RETURNING *`,
+      [name, email, phone, userId]
+    );
 
-  return result;
+    return result;
+  }
 };
 
 // Delete user by id

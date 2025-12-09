@@ -50,36 +50,47 @@ const updateUser = async (req: Request, res: Response) => {
   const { name, email, phone, role } = req.body;
 
   try {
+    const user = req.user;
+
+    let finalRole = role;
+    if (user?.role !== "admin") {
+      finalRole = undefined; 
+    }
+
     const result = await userService.updateUser(
       name,
       email,
       phone,
-      role,
+      finalRole,
       userId!
     );
+
     if (result.rows.length === 0) {
-      res.status(404).json({
+      return res.status(404).json({
         success: false,
         message: "User not found for update",
       });
-    } else {
-      res.status(200).json({
-        success: true,
-        message: "Updated Successfully",
-        data: result.rows[0],
-      });
     }
+
+    res.status(200).json({
+      success: true,
+      message: "Updated Successfully",
+      data: result.rows[0],
+    });
   } catch (err: any) {
-    res.status(404).json({
+    res.status(500).json({
       success: false,
       message: `UpdateUser: ${err.message}`,
     });
   }
 };
 
+
 // Delete user by id
 const deleteUser = async (req: Request, res: Response) => {
   const userId = req.params.userId;
+  const user = req.user;
+  // console.log(user);
   try {
     const result = await userService.deleteUser(userId!);
     if (result.rowCount === 0) {

@@ -32,6 +32,7 @@ const loginUser = async (email: string, password: string) => {
   }
 
   const user = result.rows[0];
+  console.log(user);
 
   // Checking Password
   const matchPass = await bcrypt.compare(password, user.password);
@@ -43,6 +44,7 @@ const loginUser = async (email: string, password: string) => {
   const secret = config.jwt_secret as string;
   const token = jwt.sign(
     {
+      userId: user.id,
       name: user.name,
       email: user.email,
       role: user.role,
