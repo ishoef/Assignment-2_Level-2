@@ -54,7 +54,7 @@ const loginUser = async (email: string, password: string) => {
   );
 
   console.log("token : ", { token });
-  return { token, user };
+  return { token: `Bearer ${token}`, user };
 };
 
 export const authService = {
