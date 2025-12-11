@@ -2,7 +2,7 @@
 
 A backend-powered Vehicle Rental Management System with authentication, vehicle inventory, customer accounts, and booking operations.
 
-🔗 **Live URL:** https://assignment-2-plum-six.vercel.app/
+🔗 **Live URL:** https://assignment-2-vehicle-rental.vercel.app/
 
 ---
 
